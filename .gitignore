@@ -32,3 +32,6 @@ htmlcov/
 *.swo
 *~
 uv.lock
+
+# qoder
+.qoder/
