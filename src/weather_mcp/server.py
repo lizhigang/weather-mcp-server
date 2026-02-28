@@ -7,11 +7,9 @@ import sys
 from mcp.server.fastmcp import FastMCP
 
 try:
-    from weather_mcp.weather_service import get_cities, get_current_weather, get_forecast
-    print("✅ 使用绝对导入: weather_mcp.weather_service")
+    from weather_mcp.weather_service import get_cities, get_current_weather, get_forecast    
 except ModuleNotFoundError:
     from weather_service import get_cities, get_current_weather, get_forecast
-    print("✅ 使用相对导入: weather_service")
 
 
 def create_mcp_server(host: str = "127.0.0.1", port: int = 8000) -> FastMCP:
