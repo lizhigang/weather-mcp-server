@@ -1,0 +1,15 @@
+[project]
+name = "weather-mcp"
+version = "0.1.0"
+description = "A MCP server that provides mock weather information"
+requires-python = ">=3.10"
+dependencies = ["mcp[cli]"]
+
+[project.scripts]
+weather-mcp = "weather_mcp.server:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
