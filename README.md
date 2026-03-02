@@ -202,6 +202,47 @@ options:
   --port PORT           HTTP 服务器端口（默认: 8080，仅用于 sse/streamable-http 模式）
 ```
 
+## 测试方法
+
+### 使用 MCP Inspector（推荐）
+
+MCP Inspector 是一个官方的 Web 可视化测试工具，可以连接 stdio 或 HTTP 模式的 MCP Server 进行交互式测试。
+
+#### 启动 Inspector
+
+```bash
+npx @modelcontextprotocol/inspector
+```
+
+启动后会自动打开浏览器访问 `http://localhost:6274`，Inspector 内部代理服务运行在 `6277` 端口。
+
+#### 连接配置
+
+**stdio 模式测试：**
+- Transport: `stdio`
+- Command: `python`
+- Arguments: `-m weather_mcp.server`
+
+**streamable-http 模式测试：**
+1. 先启动 HTTP 服务器：
+   ```bash
+   weather-mcp --transport streamable-http --port 8080
+   ```
+2. 在 Inspector 中选择：
+   - Transport: `HTTP`
+   - URL: `http://localhost:8080/mcp`
+
+**sse 模式测试：**
+1. 先启动 SSE 服务器：
+   ```bash
+   weather-mcp --transport sse --port 8080
+   ```
+2. 在 Inspector 中选择：
+   - Transport: `HTTP`
+   - URL: `http://localhost:8080/sse`
+
+> **注意**：HTTP 模式（streamable-http/sse）需要先在 Inspector 外启动服务器，然后在 Inspector 中填入对应的 URL 地址进行连接。
+
 ## 三种模式对比
 
 | 特性 | stdio 模式 | sse 模式 | streamable-http 模式 |
@@ -213,6 +254,7 @@ options:
 | 网络访问 | 仅限本地 | 支持远程访问 | 支持远程访问 |
 | 启动速度 | 快 | 稍慢 | 稍慢 |
 | 端点路径 | - | `/sse` | `/mcp` |
+| Inspector 测试 | 直接启动 | 需先启动服务，URL: `http://host:port/sse` | 需先启动服务，URL: `http://host:port/mcp` |
 
 ## 可用工具
 
